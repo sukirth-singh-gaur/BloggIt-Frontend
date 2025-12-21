@@ -4,6 +4,7 @@ import { getProfile, logout } from "../api/apiService";
 import { toast } from "react-toastify";
 import BloggitLogo from "../assets/logo.svg";
 import WriteLogo from "../assets/write.svg";
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
 
 const Header = () => {
   const [user, setUser] = useState(null);

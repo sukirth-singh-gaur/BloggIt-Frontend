@@ -1,2 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+/* This class name must match the 'className' in your GrammarBlot.js */
+.grammar-error {
+  border-bottom: 2px wavy red; /* Classic grammar error underline */
+  background-color: rgba(255, 0, 0, 0.1); /* Optional slight background */
+  cursor: pointer;
+}

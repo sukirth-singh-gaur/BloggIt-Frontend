@@ -19,6 +19,12 @@ export const deleteBlog = (id) => axios.delete(`${API_URL}/blogs/${id}`);
 export const createComment = (blogId, commentData) => axios.post(`${API_URL}/blogs/${blogId}/comments`, commentData);
 export const getCommentsForBlog = (blogId) => axios.get(`${API_URL}/blogs/${blogId}/comments`);
 
+//Language Tool
+export const grammarCheck = async (text) => {
+  const { data } = await axios.post("/api/grammar-check", { text });
+  return data;
+};
+
 //Image Upload Service
 export const uploadImage = (formData) => {
   return axios.post(`${API_URL}/upload`, formData, {
