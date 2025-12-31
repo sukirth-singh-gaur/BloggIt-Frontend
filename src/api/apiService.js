@@ -1,35 +1,59 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = '/api'; // Proxy handles the full URL
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
-// Auth Service
-export const register = (userData) => axios.post(`${API_URL}/users/register`, userData);
-export const login = (userData) => axios.post(`${API_URL}/users/login`, userData);
-export const logout = () => axios.post(`${API_URL}/users/logout`);
-export const getProfile = () => axios.get(`${API_URL}/users/profile`);
+// Create axios instance
+const api = axios.create({
+  baseURL: API_BASE_URL,
+  withCredentials: true,
+});
 
-// Blog Service
-export const createBlog = (blogData) => axios.post(`${API_URL}/blogs`, blogData);
-export const getAllBlogs = () => axios.get(`${API_URL}/blogs`);
-export const getBlogById = (id) => axios.get(`${API_URL}/blogs/${id}`);
-export const updateBlog = (id, blogData) => axios.put(`${API_URL}/blogs/${id}`, blogData);
-export const deleteBlog = (id) => axios.delete(`${API_URL}/blogs/${id}`);
+// ---------- Auth Service ----------
+export const register = (userData) =>
+  api.post("/api/users/register", userData);
 
-// Comment Service
-export const createComment = (blogId, commentData) => axios.post(`${API_URL}/blogs/${blogId}/comments`, commentData);
-export const getCommentsForBlog = (blogId) => axios.get(`${API_URL}/blogs/${blogId}/comments`);
+export const login = (userData) =>
+  api.post("/api/users/login", userData);
 
-//Language Tool
+export const logout = () =>
+  api.post("/api/users/logout");
+
+export const getProfile = () =>
+  api.get("/api/users/profile");
+
+// ---------- Blog Service ----------
+export const createBlog = (blogData) =>
+  api.post("/api/blogs", blogData);
+
+export const getAllBlogs = () =>
+  api.get("/api/blogs");
+
+export const getBlogById = (id) =>
+  api.get(`/api/blogs/${id}`);
+
+export const updateBlog = (id, blogData) =>
+  api.put(`/api/blogs/${id}`, blogData);
+
+export const deleteBlog = (id) =>
+  api.delete(`/api/blogs/${id}`);
+
+// ---------- Comment Service ----------
+export const createComment = (blogId, commentData) =>
+  api.post(`/api/blogs/${blogId}/comments`, commentData);
+
+export const getCommentsForBlog = (blogId) =>
+  api.get(`/api/blogs/${blogId}/comments`);
+
+// ---------- Grammar Check ----------
 export const grammarCheck = async (text) => {
-  const { data } = await axios.post("/api/grammar-check", { text });
+  const { data } = await api.post("/api/grammar-check", { text });
   return data;
 };
 
-//Image Upload Service
-export const uploadImage = (formData) => {
-  return axios.post(`${API_URL}/upload`, formData, {
+// ---------- Image Upload ----------
+export const uploadImage = (formData) =>
+  api.post("/api/upload", formData, {
     headers: {
-      'Content-Type': 'multipart/form-data',
+      "Content-Type": "multipart/form-data",
     },
   });
-};
