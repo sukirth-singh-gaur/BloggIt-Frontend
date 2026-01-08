@@ -11,17 +11,20 @@ const LoginPage = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await login(formData);
-      toast.success('Logged in successfully!');
-      navigate('/');
-      window.location.reload(); // To refresh header state
-    } catch (error) {
-      toast.error(error.response?.data?.message || 'Login failed');
-    }
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const { data } = await login(formData);
+    localStorage.setItem("token", data.token);
+
+    toast.success("Logged in successfully!");
+    navigate("/");
+    window.location.reload(); // refresh header state
+  } catch (error) {
+    toast.error(error.response?.data?.message || "Login failed");
+  }
+};
+
 
   return (
     <div className="max-w-md mx-auto mt-10 p-8 md:border-1 border-0 md:border-gray-100 rounded-lg md:shadow-md ">

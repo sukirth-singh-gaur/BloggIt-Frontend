@@ -213,6 +213,7 @@ const CreateBlogPage = () => {
                         )}
                       </div>
                       <button
+                        type="button"
                         onClick={() => applySuggestion(match)}
                         className="ml-3 px-2 py-1 text-xs bg-green-600 text-white rounded"
                       >
