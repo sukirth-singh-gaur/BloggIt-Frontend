@@ -7,6 +7,7 @@ The application allows users to create, manage, and publish blog posts while pro
 
 The project demonstrates practical experience with **RESTful APIs, JWT authentication, Dockerized services, and cloud deployment on AWS**.
 
+### read more about the backend infrastucture here- https://github.com/sukirth-singh-gaur/BloggIt-Backend/
 ---
 
 ## Features
