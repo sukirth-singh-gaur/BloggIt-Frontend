@@ -16,7 +16,7 @@ Read more about the backend infrastructure here:
 
 The editor integrates a dedicated grammar-checking microservice to provide instant feedback while writing.
 
-![Grammar Correction Demo](./media/grammar-corrections.gif)
+![Grammar Correction Demo](./media/grammar_corrections.gif)
 
 ---
 
@@ -32,7 +32,7 @@ Users can write blogs using a rich text editor supporting formatting, headings, 
 
 Images are uploaded directly to Cloudinary and rendered inside the blog content.
 
-![Blog with Image Upload](./media/blog-image.png)
+![Image Upload Demo](./media/blog_image.png)
 
 
 
