@@ -1,25 +1,51 @@
-
-
 # BloggIt — Full-Stack Blogging Platform
 
-BloggIt is a full-stack blogging platform built using the **MERN stack**, with a focus on **backend architecture, authentication, and production deployment**.
+BloggIt is a full-stack blogging platform built using the MERN stack, with a strong focus on backend architecture, authentication, and production deployment.
 The application allows users to create, manage, and publish blog posts while providing real-time grammar feedback during content creation.
 
-The project demonstrates practical experience with **RESTful APIs, JWT authentication, Dockerized services, and cloud deployment on AWS**.
+The project demonstrates practical experience with RESTful APIs, JWT authentication, Dockerized services, and cloud deployment on AWS.
 
-### read more about the backend infrastucture here- https://github.com/sukirth-singh-gaur/BloggIt-Backend/
+Read more about the backend infrastructure here:
+[https://github.com/sukirth-singh-gaur/BloggIt-Backend/](https://github.com/sukirth-singh-gaur/BloggIt-Backend/)
+
+
+
+## Feature Demonstrations
+
+### Real-Time Grammar Correction
+
+The editor integrates a dedicated grammar-checking microservice to provide instant feedback while writing.
+
+![Grammar Correction Demo](./media/grammar-corrections.gif)
+
 ---
+
+### Rich Text Blog Editor
+
+Users can write blogs using a rich text editor supporting formatting, headings, lists, and embeds.
+
+![Rich Text Editor Demo](./media/blog_showcase.gif)
+
+---
+
+### Blog with Image Upload
+
+Images are uploaded directly to Cloudinary and rendered inside the blog content.
+
+![Blog with Image Upload](./media/blog-image.png)
+
+
 
 ## Features
 
-* User authentication using **JWT stored in HTTP-only cookies**
+* User authentication using JWT stored in HTTP-only cookies
 * Role-based access control for protected routes
 * CRUD operations for blogs and comments
-* Rich text editor with **image uploads to Cloudinary**
-* Integrated **grammar-correction microservice** using LanguageTool
-* Secure production deployment with **Docker, Nginx, and HTTPS**
+* Rich text editor with image uploads to Cloudinary
+* Integrated grammar-correction microservice using LanguageTool
+* Secure production deployment with Docker, Nginx, and HTTPS
 
----
+
 
 ## Architecture Overview
 
@@ -43,7 +69,7 @@ MongoDB Atlas
 * Grammar checking is delegated to a separate containerized service.
 * Nginx acts as a reverse proxy and handles HTTPS termination.
 
----
+
 
 ## Tech Stack
 
@@ -58,11 +84,11 @@ MongoDB Atlas
 
 * Node.js
 * Express.js
-* MongoDB & Mongoose
+* MongoDB and Mongoose
 * JWT Authentication
 * Cloudinary (media storage)
 
-### DevOps & Infrastructure
+### DevOps and Infrastructure
 
 * Docker
 * Nginx
@@ -73,21 +99,21 @@ MongoDB Atlas
 
 * LanguageTool (grammar correction)
 
----
 
-##  Authentication Flow
+
+## Authentication Flow
 
 1. User logs in with email and password.
 2. Backend verifies credentials and issues a JWT.
-3. JWT is stored in an **HTTP-only cookie**.
+3. JWT is stored in an HTTP-only cookie.
 4. Protected routes validate the token via middleware.
 5. Role checks determine access permissions.
 
 This approach improves security by preventing client-side access to tokens.
 
----
 
-##  Deployment Strategy
+
+## Deployment Strategy
 
 * Backend and grammar service are containerized using Docker.
 * Services are deployed on an AWS EC2 instance.
@@ -95,9 +121,9 @@ This approach improves security by preventing client-side access to tokens.
 * Frontend is deployed separately on Vercel.
 * Environment variables are used for secrets and configuration.
 
----
 
-##  Environment Variables
+
+## Environment Variables
 
 Create a `.env` file in the backend directory:
 
@@ -115,61 +141,61 @@ LANGUAGETOOL_URL=http://languagetool:8010
 NODE_ENV=production
 ```
 
----
 
-##  Running Locally with Docker
 
-###  Clone the repository
+## Running Locally with Docker
+
+### Clone the repository
 
 ```bash
 git clone https://github.com/sukirth-singh-gaur/BloggIt-Backend.git
 cd BloggIt-Backend
 ```
 
-###  Build and run containers
+### Build and run containers
 
 ```bash
 docker compose up --build
 ```
 
-###  Access the application
+### Access the application
 
-* Backend API: `http://localhost:5001`
-* Grammar Service: `http://localhost:8010`
+* Backend API: [http://localhost:5001](http://localhost:5001)
+* Grammar Service: [http://localhost:8010](http://localhost:8010)
 
----
 
-##  Sample API Endpoints
 
-| Method | Endpoint              | Description         |
-| ------ | --------------------- | ------------------- |
-| POST   | `/api/users/register` | Register a new user |
-| POST   | `/api/users/login`    | Authenticate user   |
-| GET    | `/api/users/profile`  | Get user profile    |
-| GET    | `/api/blogs`          | Fetch all blogs     |
-| POST   | `/api/blogs`          | Create a blog       |
-| POST   | `/api/grammar-check`  | Grammar validation  |
+## Sample API Endpoints
 
----
+| Method | Endpoint            | Description         |
+| ------ | ------------------- | ------------------- |
+| POST   | /api/users/register | Register a new user |
+| POST   | /api/users/login    | Authenticate user   |
+| GET    | /api/users/profile  | Get user profile    |
+| GET    | /api/blogs          | Fetch all blogs     |
+| POST   | /api/blogs          | Create a blog       |
+| POST   | /api/grammar-check  | Grammar validation  |
 
-##  Key Learnings
+
+
+## Key Learnings
 
 * Implementing secure cookie-based authentication across domains
 * Handling CORS and HTTPS issues in production
 * Containerizing and deploying microservices
 * Debugging real-world deployment issues on cloud infrastructure
 
----
 
-##  License
+
+## License
 
 This project is for educational and learning purposes.
 
----
 
-##  Author
 
-**Sukirth Singh Gaur**
-GitHub: [github.com/sukirth-singh-gaur](https://github.com/sukirth-singh-gaur)
+## Author
 
----
+Sukirth Singh Gaur
+GitHub: [https://github.com/sukirth-singh-gaur](https://github.com/sukirth-singh-gaur)
+
+
