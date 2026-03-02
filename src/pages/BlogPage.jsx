@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { getBlogById, getCommentsForBlog, createComment, getProfile } from '../api/apiService';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { getBlogById, getCommentsForBlog, createComment, getProfile, deleteBlog } from '../api/apiService';
 import { toast } from 'react-toastify';
 
 const BlogPage = () => {
@@ -11,11 +11,12 @@ const BlogPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [user, setUser] = useState(null); // To check if user is logged in
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch user profile to see if they can comment
+        // Fetch user profile to see if they can comment, edit, delete
         const userRes = await getProfile();
         setUser(userRes.data);
       } catch (error) {
@@ -38,8 +39,7 @@ const BlogPage = () => {
     fetchData();
   }, [id]);
 
-
-    const handleCommentSubmit = async (e) => {
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!newComment.trim()) return toast.error("Comment cannot be empty.");
 
@@ -59,17 +59,52 @@ const BlogPage = () => {
       setIsSubmitting(false);
     }
   };
+
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      try {
+        await deleteBlog(id);
+        toast.success("Blog deleted successfully!");
+        navigate("/");
+      } catch (error) {
+        toast.error("Failed to delete blog.");
+      }
+    }
+  };
+
   if (loading) return <div className="text-center mt-10">Loading...</div>;
   if (!blog) return <div className="text-center mt-10">Blog not found.</div>;
+
+  const isAuthor = user && blog && user._id === blog.author?._id;
 
   return (
     <div className="mx-auto bg-white p-8 rounded-lg">
       <Link to="/" className="text-gray-600 hover:underline mb-6 block">
         &larr; Back to all posts
       </Link>
-      <h1 className="text-6xl font-extrabold text-gray-900 mb-4">
-        {blog.title}
-      </h1>
+      <div className="flex justify-between items-start mb-4">
+        <h1 className="text-6xl font-extrabold text-gray-900">
+          {blog.title}
+        </h1>
+        
+        {isAuthor && (
+          <div className="flex space-x-3 ml-4 mt-2">
+            <button
+              onClick={() => navigate(`/edit/${id}`)}
+              className="px-4 py-2 bg-gray-100 text-gray-800 border border-gray-300 rounded hover:bg-gray-200 text-sm font-medium transition-colors"
+            >
+              Edit
+            </button>
+            <button
+              onClick={handleDelete}
+              className="px-4 py-2 bg-red-50 text-red-600 border border-red-200 rounded hover:bg-red-100 text-sm font-medium transition-colors"
+            >
+              Delete
+            </button>
+          </div>
+        )}
+      </div>
+
       <div className="text-gray-500 mb-8">
         <div className="flex h-5 items-center space-x-4">
           <div>
@@ -83,8 +118,8 @@ const BlogPage = () => {
         className="prose lg:prose-xl max-w-none"
         dangerouslySetInnerHTML={{ __html: blog.content }}
       />
-      {console.log(blog.content)}
-      <div className="border-t border-gray-200 pt-8">
+      
+      <div className="border-t border-gray-200 pt-8 mt-12">
         <h2 className="text-2xl font-bold mb-6">Responses ({comments.length})</h2>
         
         {/* New Comment Form */}

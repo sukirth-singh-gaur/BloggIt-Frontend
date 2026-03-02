@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5001";
 
 // Create axios instance
 const api = axios.create({
@@ -8,16 +8,27 @@ const api = axios.create({
   withCredentials: true,
 });
 
+// Helper to set Clerk token
+let getClerkToken = null;
+
+export const setClerkTokenGetter = (getter) => {
+  getClerkToken = getter;
+};
+
+// Request interceptor to add Clerk token
+api.interceptors.request.use(async (config) => {
+  if (getClerkToken) {
+    const token = await getClerkToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
 // ---------- Auth Service ----------
-export const register = (userData) =>
-  api.post("/api/users/register", userData);
-
-export const login = (userData) =>
-  api.post("/api/users/login", userData);
-
-export const logout = () =>
-  api.post("/api/users/logout");
-
 export const getProfile = () =>
   api.get("/api/users/profile");
 
@@ -57,3 +68,5 @@ export const uploadImage = (formData) =>
       "Content-Type": "multipart/form-data",
     },
   });
+
+export default api;
